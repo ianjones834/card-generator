@@ -10,10 +10,15 @@
   padding: .25in;
   margin: 0;
   text-align: center;
+  align-content: center;
 }
 
 .grid {
   display: grid;
   grid-template-columns: 2.5in 2.5in 2.5in;
   margin: 0;
+}
+
+.codex-editor--narrow .codex-editor__redactor {
+  margin-right: 0 !important;
 }
