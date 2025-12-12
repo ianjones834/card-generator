@@ -2,7 +2,7 @@ import EditorJS from './node_modules/@editorjs/editorjs/dist/editorjs.mjs';
 import EditorjsList from './node_modules/@editorjs/list/dist/editorjs-list.mjs';
 import Header from './node_modules/@editorjs/header/dist/header.mjs';
 
-let cards = [];
+let card_num = 0;
 let editors = [];
 
 function newEditor(id) {
@@ -23,27 +23,24 @@ function newEditor(id) {
 }
 
 function createEditors() {
-  for (let card of cards) {
-    editors.push(newEditor(card.id))
+  for (let i = 0; i < card_num; i++) {
+    if (i < editors.length) continue;
+
+    editors.push(newEditor(i))
   }
 }
 
-export function newBlankCard() {
+function newBlankCard(id) {
   return {
-    id: cards.length,
+    id: id,
     title: '',
     sub_title: '',
     description: '',
-    editor: `editor-${cards.length}`
+    editor: `editor-${id}`
   }
 }
 
-export function resetCardList() {
-  clearCardList();
-  addCardsToHtml();
-}
-
-export function addCardToHtml(card) {
+function addCardToHtml(card) {
   const card_html = `<div class="card" id="editor-${card.id}">
     <h3>${card.title}</h3>
     <h5>${card.sub_title}</h5>
@@ -54,42 +51,22 @@ export function addCardToHtml(card) {
 
 }
 
-export function editCards(id) {
-  cards[id] = cardPrompt(id);
-  resetCardList();
-}
-
-export function cardPrompt(id) {
-  let title = prompt('Enter title', '');
-  let sub_title = prompt('Enter Subtitle', '');
-  let description = prompt('Enter Description', '');
-
-  return {id: id, title: title, sub_title: sub_title, description: description};
-}
-
-function addCardsToHtml() {
-  for (let card of cards) {
-    addCardToHtml(card);
-  }
-
-  createEditors()
-}
-
-function clearCardList() {
-  $('#card-list').html('');
-}
-
 function newPage() {
   for (let i = 0; i < 9; i++) {
-    cards.push(newBlankCard());
+    addCardToHtml(newBlankCard(card_num++));
   }
 
-  resetCardList();
+
+  createEditors();
 };
 
 function removePage() {
-  cards.splice(cards.length - 9);
-  resetCardList();
+  for (let i = 0; i < 9; i++) {
+    $(`#editor-${card_num - 1}`).remove();
+    card_num--;
+  }
+
+  editors.splice(editors.length - 9);
 }
 
 newPage();
