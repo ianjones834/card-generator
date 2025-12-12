@@ -1,0 +1,19 @@
+@page {
+  size: letter;
+  margin: .1in;
+}
+
+.card {
+  width: 2in;
+  height: 3in;
+  border: 1px black dashed;
+  padding: .25in;
+  margin: 0;
+  text-align: center;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 2.5in 2.5in 2.5in;
+  margin: 0;
+}
