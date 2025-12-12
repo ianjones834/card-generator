@@ -13,6 +13,10 @@
   align-content: center;
 }
 
+.card li {
+  text-align: left !important;
+}
+
 .grid {
   display: grid;
   grid-template-columns: 2.5in 2.5in 2.5in;
